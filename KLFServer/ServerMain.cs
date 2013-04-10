@@ -290,7 +290,9 @@ namespace KLFServer
 		{
 
 			Server server = new Server(settings);
-
+#if DEBUG
+			server.hostingLoop();
+#else
 			try
 			{
 				server.hostingLoop();
@@ -325,7 +327,7 @@ namespace KLFServer
 				//server.clearState();
 				//return ServerStatus.CRASHED;
 			}
-
+#endif
 			server.clearState();
 
 			if (server.stop)

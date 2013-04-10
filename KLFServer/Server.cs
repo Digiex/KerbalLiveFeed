@@ -14,9 +14,12 @@ using System.Diagnostics;
 
 using System.Collections.Concurrent;
 
+using KLFServer.Plugins;
+using KLFServerPluginAPI;
+
 namespace KLFServer
 {
-	class Server
+	partial class Server : IServerAPI
 	{
 
 		public struct ClientMessage
@@ -81,6 +84,8 @@ namespace KLFServer
 		public ServerSettings settings;
 
 		public Stopwatch stopwatch = new Stopwatch();
+		
+		internal PluginManager pluginmanager;
 
 		public long currentMillisecond
 		{
@@ -315,6 +320,12 @@ namespace KLFServer
 
 			stampedConsoleWriteLine("Hosting server on port " + settings.port + "...");
 
+			pluginmanager = new PluginManager(this);
+			pluginmanager.DoImport();
+			stampedConsoleWriteLine("Available plugins: "+pluginmanager.AvailableNumberOfPlugins);
+
+			pluginmanager.LoadPlugins();
+
 			clients = new ServerClient[settings.maxClients];
 			for (int i = 0; i < clients.Length; i++)
 			{
@@ -326,6 +337,8 @@ namespace KLFServer
 			numClients = 0;
 			numInGameClients = 0;
 			numInFlightClients = 0;
+
+			pluginmanager.EnablePlugins();
 
 			listenThread = new Thread(new ThreadStart(listenForClients));
 			commandThread = new Thread(new ThreadStart(handleCommands));
@@ -391,6 +404,8 @@ namespace KLFServer
 
 			clearState();
 			stopwatch.Stop();
+
+			pluginmanager.DisablePlugins();
 
 			stampedConsoleWriteLine("Server session ended.");
 			
