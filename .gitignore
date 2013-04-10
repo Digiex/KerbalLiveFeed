@@ -1,26 +1,60 @@
-# Generic ignore patterns
-*~
-*.o
-*.a
-*.moc
-.git
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
 
-# Logs etc.
-
-# Windows project stuff
-/bin
-/obj
-KLFClient/bin
-KLFClient/obj
-KLFServer/bin
-KLFServer/obj
-
-
-# Windows runtime
-*.exe
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
 *.ilk
-*.pdb
-*.msi
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+obj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+Ankh.NoLoad
 
-# Windows clutter
-*.db
+#MonoDevelop
+*.pidb
+*.userprefs
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+
+#Project files
+[Bb]uild/
+
+#Subversion files
+.svn
+
+# Office Temp Files
+~$*
+
+#NuGet
+packages/
+
+#ncrunch
+*ncrunch*
+*crunch*.local.xml
+
+# visual studio database projects
+*.dbmdl
